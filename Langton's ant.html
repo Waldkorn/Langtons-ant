@@ -12,8 +12,8 @@
 
 		td {
 
-			width: 30px;
-			padding-top: 30px;
+			width: 6px;
+			padding-top: 6px;
 
 		}
 
@@ -41,16 +41,21 @@
 		</table>
 	</div>
 
+	<div id=steps>
+
+	</div>
+
 	<script>
-		size = 23;
+		size = 100;
 		position = "r" + parseInt((size + 1)/2) + "c" + parseInt((size + 1)/2);
 		direction = "north";
+		steps = 0;
 
 		makeTable(size);
 
 		window.setInterval(function(){
 			move();
-		}, 100);
+		}, 50);
 
 
 		function makeTable(size) {
@@ -174,6 +179,9 @@
 			}
 
 			position = "r" + row + "c" + column;
+			steps++;
+
+			document.getElementById("steps").innerHTML = "This ant has taken " + steps + " steps";
 
 		}
 
