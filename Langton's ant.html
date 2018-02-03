@@ -1,0 +1,184 @@
+<html>
+
+<head>
+
+	<style>
+
+		table {
+
+			border-collapse: collapse;
+
+		}
+
+		td {
+
+			width: 30px;
+			padding-top: 30px;
+
+		}
+
+		.white {
+
+			background-color: white;
+
+		}
+
+		.black {
+
+			background-color: black;
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<table id="table" border="1">
+
+		</table>
+	</div>
+
+	<script>
+		size = 23;
+		position = "r" + parseInt((size + 1)/2) + "c" + parseInt((size + 1)/2);
+		direction = "north";
+
+		makeTable(size);
+
+		window.setInterval(function(){
+			move();
+		}, 100);
+
+
+		function makeTable(size) {
+
+			table = document.getElementById("table");
+
+			for (i = 1 ; i <= size ; i++) {
+
+				table.innerHTML += "<tr id=" + i + ">";
+
+				for (j = 1 ; j <= size ; j++) {
+
+					document.getElementById(i).innerHTML += "<td class='white' row=" + i + " column=" + j + " id=r" + i + "c" + j + "></td>";
+
+				}
+
+				table.innerHTML += "</tr>";
+
+			}
+
+		}
+
+		function changeColor(id) {
+
+			cell = document.getElementById(id);
+
+			if (cell.className == "black") {
+
+				document.getElementById(id).setAttribute("class", "white");
+
+			}	else if (cell.className == "white") {
+
+				document.getElementById(id).setAttribute("class", "black");
+
+			}
+
+		}
+
+		function move() {
+
+			row = document.getElementById(position).getAttribute("row");
+			column = document.getElementById(position).getAttribute("column");
+			color = document.getElementById(position).getAttribute("class");
+
+			if (color == "white") {
+
+				changeDirectionLeft();
+
+			} else if (color == "black") {
+
+				changeDirectionRight();
+
+			}
+
+			changeColor(position);
+			moveForward();
+
+			console.log(position);
+
+		}
+
+		function changeDirectionLeft() {
+
+			switch (direction) {
+
+				case "north":
+					direction = "west";
+					break;
+				case "east":
+					direction = "north";
+					break;
+				case "south":
+					direction = "east";
+					break;
+				case "west":
+					direction = "south";
+					break;
+
+			}
+
+		}
+
+		function changeDirectionRight() {
+
+			switch (direction) {
+
+				case "north":
+					direction = "east";
+					break;
+				case "east":
+					direction = "south";
+					break;
+				case "south":
+					direction = "west";
+					break;
+				case "west":
+					direction = "north";
+					break;
+
+			}
+
+		}
+
+		function moveForward() {
+
+			switch (direction) {
+
+				case "north":
+					row--;
+					break;
+				case "east":
+					column++;
+					break;
+				case "south":
+					row++;
+					break;
+				case "west":
+					column--;
+					break;
+
+			}
+
+			position = "r" + row + "c" + column;
+
+		}
+
+	</script>
+
+</body>
+
+</html>
