@@ -8,7 +8,7 @@ live version on: http://www.wijzijncodegorilla.nl/ewout/mier.html (might take a 
 
 # langton's ant 4 colors
 
-Basically the same idea but this time langton ant changes colors as follows: black => blue => red => green => black. The ant will move left, right, right, left respectively.
+Basically the same idea but this time langton ant changes colors as follows: white => blue => red => green => white. The ant will move left, right, right, left respectively.
 
 The patterns created here are more symmetrical.
 
