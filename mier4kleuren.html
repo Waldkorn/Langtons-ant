@@ -1,0 +1,217 @@
+<html>
+
+<head>
+
+	<style>
+
+		table {
+
+			border-collapse: collapse;
+
+		}
+
+		td {
+
+			width: 6px;
+			padding-top: 6px;
+
+		}
+
+		.white {
+
+			background-color: #f8f9fa;
+
+		}
+
+		.blue {
+
+			background-color: blue;
+
+		}
+
+		.red {
+
+			background-color: red;
+
+		}
+
+		.green {
+
+			background-color: green;
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<table id="table" border="1">
+
+		</table>
+	</div>
+
+	<div id=steps>
+
+	</div>
+
+	<script>
+		size = 100;
+		position = "r" + parseInt((size + 1)/2) + "c" + parseInt((size + 1)/2);
+		direction = "north";
+		steps = 0;
+
+		makeTable(size);
+
+		window.setInterval(function(){
+			move();
+		}, 50);
+
+
+		function makeTable(size) {
+
+			table = document.getElementById("table");
+
+			for (i = 1 ; i <= size ; i++) {
+
+				table.innerHTML += "<tr id=" + i + ">";
+
+				for (j = 1 ; j <= size ; j++) {
+
+					document.getElementById(i).innerHTML += "<td class='white' row=" + i + " column=" + j + " id=r" + i + "c" + j + "></td>";
+
+				}
+
+				table.innerHTML += "</tr>";
+
+			}
+
+		}
+
+		function changeColor(id) {
+
+			cell = document.getElementById(id);
+			cellColor = cell.className;
+
+			switch (cellColor) {
+
+				case "white":
+					document.getElementById(id).setAttribute("class", "blue");
+					break;
+				case "blue":
+					document.getElementById(id).setAttribute("class", "red");
+					break;
+				case "red":
+					document.getElementById(id).setAttribute("class", "green");
+					break;
+				case "green":
+					document.getElementById(id).setAttribute("class", "white");
+					break;
+
+			}
+
+		}
+
+		function move() {
+
+			row = document.getElementById(position).getAttribute("row");
+			column = document.getElementById(position).getAttribute("column");
+			color = document.getElementById(position).getAttribute("class");
+
+			switch (color) {
+
+				case "white":
+					changeDirectionRight();
+					break;
+				case "blue":
+					changeDirectionLeft();
+					break;
+				case "red":
+					changeDirectionLeft();
+					break;
+				case "green":
+					changeDirectionRight();
+					break;
+
+			}
+
+			changeColor(position);
+			moveForward();
+
+		}
+
+		function changeDirectionLeft() {
+
+			switch (direction) {
+
+				case "north":
+					direction = "west";
+					break;
+				case "east":
+					direction = "north";
+					break;
+				case "south":
+					direction = "east";
+					break;
+				case "west":
+					direction = "south";
+					break;
+
+			}
+
+		}
+
+		function changeDirectionRight() {
+
+			switch (direction) {
+
+				case "north":
+					direction = "east";
+					break;
+				case "east":
+					direction = "south";
+					break;
+				case "south":
+					direction = "west";
+					break;
+				case "west":
+					direction = "north";
+					break;
+
+			}
+
+		}
+
+		function moveForward() {
+
+			switch (direction) {
+
+				case "north":
+					row--;
+					break;
+				case "east":
+					column++;
+					break;
+				case "south":
+					row++;
+					break;
+				case "west":
+					column--;
+					break;
+
+			}
+
+			position = "r" + row + "c" + column;
+			steps++;
+
+			document.getElementById("steps").innerHTML = "This ant has taken " + steps + " steps";
+
+		}
+
+	</script>
+
+</body>
+
+</html>
